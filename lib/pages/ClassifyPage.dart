@@ -21,9 +21,20 @@ class ClassifypageState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget listView = new ListView.builder(
-      itemCount: listData.length,
-      itemBuilder: (context, i) => renderRow(i),
+    Widget listView = new GridView.count(
+      crossAxisCount: 3,
+      children: new List.generate(listData.length, (i) {
+        return new Container(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+//              ToastManager.showToast("click");
+            children: <Widget>[
+              thumbImg(i),
+              titleRow(i)
+            ],
+          ),
+        );
+      }),
 //      controller: _controller,
     );
     return new RefreshIndicator(child: listView, onRefresh: pullToRefresh);
@@ -31,9 +42,7 @@ class ClassifypageState extends State<StatefulWidget> {
 
   Future<Null> pullToRefresh() async {
     getData();
-    return null;
   }
-
 
   @override
   void initState() {
@@ -42,7 +51,7 @@ class ClassifypageState extends State<StatefulWidget> {
   }
 
   void getData() {
-    Net.get(Api.classify + "3262/0/1.json", (data) {
+    Net.get(Api.category, (data) {
       if (data != null) {
         setState(() {
           listData = json.decode(data);
@@ -51,18 +60,6 @@ class ClassifypageState extends State<StatefulWidget> {
     }, errorCallback: (e) {
       print("get news list error: $e");
     });
-  }
-
-  Widget renderRow(int i) {
-    return new InkWell(
-      child: row(i),
-      onTap: () {
-        ToastManager.showToast("click");
-//        Navigator.of(context).push(new MaterialPageRoute(
-//            builder: (ctx) => null
-//        ));
-      },
-    );
   }
 
   Widget row(int i) {
@@ -81,13 +78,8 @@ class ClassifypageState extends State<StatefulWidget> {
         ),
         new Padding(
           padding: const EdgeInsets.all(6.0),
-          child: new Container(
-//            width: 100.0,
-//            height: 80.0,
-//            color: const Color(0xFFECECEC),
-            child: new Center(
-              child: thumbImg(i),
-            ),
+          child: new Center(
+            child: thumbImg(i),
           ),
         )
       ],
@@ -96,12 +88,8 @@ class ClassifypageState extends State<StatefulWidget> {
 
   Widget titleRow(int i) {
     var itemData = listData[i];
-    return new Row(
-      children: <Widget>[
-        new Expanded(
-          child: new Text(itemData['title'], style: titleTextStyle),
-        )
-      ],
+    return new Expanded(
+      child: new Text(itemData['title'], style: titleTextStyle, maxLines: 1),
     );
   }
 

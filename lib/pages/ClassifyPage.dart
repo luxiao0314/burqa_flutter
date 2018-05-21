@@ -59,32 +59,8 @@ class ClassifypageState extends State<StatefulWidget> {
         });
       }
     }, errorCallback: (e) {
-      print("get news list error: $e");
+      print("error: $e");
     });
-  }
-
-  Widget row(int i) {
-    return new Row(
-      children: <Widget>[
-        new Expanded(
-          flex: 1,
-          child: new Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: new Column(
-              children: <Widget>[
-                titleRow(i)
-              ],
-            ),
-          ),
-        ),
-        new Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: new Center(
-            child: thumbImg(i),
-          ),
-        )
-      ],
-    );
   }
 
   Widget titleRow(int i) {

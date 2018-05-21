@@ -10,4 +10,7 @@ class Api {
 
   //分类
   static final String category = HOST + "0/category.json";
+
+  //专题
+  static final String subject = HOST + "subject/0/0.json";
 }

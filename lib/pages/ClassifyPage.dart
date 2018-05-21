@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/config/Api.dart';
 import 'package:flutter_app/utils/Net.dart';
+import 'package:flutter_app/utils/ToastManager.dart';
 
 class ClassifyPage extends StatefulWidget {
 
@@ -56,9 +57,10 @@ class ClassifypageState extends State<StatefulWidget> {
     return new InkWell(
       child: row(i),
       onTap: () {
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (ctx) => null
-        ));
+        ToastManager.showToast("click");
+//        Navigator.of(context).push(new MaterialPageRoute(
+//            builder: (ctx) => null
+//        ));
       },
     );
   }

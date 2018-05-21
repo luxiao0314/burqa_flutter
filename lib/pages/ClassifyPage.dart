@@ -24,18 +24,19 @@ class ClassifypageState extends State<StatefulWidget> {
     Widget listView = new GridView.count(
       crossAxisCount: 3,
       children: new List.generate(listData.length, (i) {
-        return new Container(
-          child: new Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-//              ToastManager.showToast("click");
-            children: <Widget>[
-              thumbImg(i),
-              titleRow(i)
-            ],
-          ),
+        return new GestureDetector(
+            onTap: () {
+              ToastManager.showToast("click");
+            },
+            child: new Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                thumbImg(i),
+                titleRow(i)
+              ],
+            )
         );
       }),
-//      controller: _controller,
     );
     return new RefreshIndicator(child: listView, onRefresh: pullToRefresh);
   }

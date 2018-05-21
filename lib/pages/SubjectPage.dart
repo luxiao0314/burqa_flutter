@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-class RecommendPage extends StatefulWidget {
+class SubjectPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new RecommendPageState();
+    return new SubjectPageState();
   }
 }
 
-class RecommendPageState extends State<StatefulWidget> {
+class SubjectPageState extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
     return new Center(
       child: new Text(
-          "1111"
+          "333"
       ),
     );
   }

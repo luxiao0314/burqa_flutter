@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/pages/ClassifyPage.dart';
 import 'package:flutter_app/pages/RecommendPage.dart';
+import 'package:flutter_app/pages/SubjectPage.dart';
 
 void main() => runApp(new MyApp());
 
@@ -11,7 +13,6 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
 
-  var appBarTitles = ['推荐', '分类', '专题'];
   final tabTextStyleNormal = new TextStyle(color: const Color(0xff969696));
   final tabTextStyleSelected = new TextStyle(color: const Color(0xff63ca6c));
   int tabIndex = 0;
@@ -20,9 +21,9 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Burqa',
         theme: new ThemeData(
-          primarySwatch: Colors.white70,
+            primaryColor: const Color(0xFF63CA6C)
         ),
         home: new Scaffold(
             body: body(),
@@ -30,17 +31,20 @@ class MyAppState extends State<MyApp> {
               items: <BottomNavigationBarItem>[
                 new BottomNavigationBarItem(
                     icon: getTabIcon(0),
-                    title: getTabTitle(0)),
+                    title: new Text("分类")),
                 new BottomNavigationBarItem(
                     icon: getTabIcon(1),
-                    title: getTabTitle(1)),
+                    title: new Text("推荐")),
                 new BottomNavigationBarItem(
                     icon: getTabIcon(2),
-                    title: getTabTitle(2)),
-                new BottomNavigationBarItem(
-                    icon: getTabIcon(3),
-                    title: getTabTitle(3)),
+                    title: new Text("专题"))
               ],
+              currentIndex: tabIndex,
+              onTap: (index) {
+                setState(() {
+                  tabIndex = index;
+                });
+              },
             )
         )
     );
@@ -49,7 +53,9 @@ class MyAppState extends State<MyApp> {
   IndexedStack body() {
     return new IndexedStack(
       children: <Widget>[
-        new RecommendPage()
+        new ClassifyPage(),
+        new RecommendPage(),
+        new SubjectPage()
       ],
       index: tabIndex,
     );
@@ -57,13 +63,9 @@ class MyAppState extends State<MyApp> {
 
   Image getTabIcon(int curIndex) {
     if (curIndex == tabIndex) {
-      return tabImage([curIndex][1]);
+      return tabImage(curIndex)[1];
     }
-    return tabImage([curIndex][0]);
-  }
-
-  getTabTitle(int curIndex) {
-    return new Text(appBarTitles[curIndex], style: getTabTextStyle(curIndex));
+    return tabImage(curIndex)[0];
   }
 
   TextStyle getTabTextStyle(int curIndex) {
@@ -73,7 +75,7 @@ class MyAppState extends State<MyApp> {
     return tabTextStyleNormal;
   }
 
-  Image tabImage(int index) {
+  tabImage(int curIndex) {
     if (tabImages == null) {
       tabImages = [
         [
@@ -90,10 +92,10 @@ class MyAppState extends State<MyApp> {
         ]
       ];
     }
-    return tabImages[index];
+    return tabImages[curIndex];
   }
 
   Image getTabImage(path) {
-    return new Image.asset(path, width: 20.0, height: 20.0);
+    return new Image.asset(path, width: 70.0, height: 70.0);
   }
 }
